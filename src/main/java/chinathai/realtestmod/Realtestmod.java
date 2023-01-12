@@ -1,9 +1,12 @@
 package chinathai.realtestmod;
 
+import chinathai.realtestmod.core.TestBlock;
+import chinathai.realtestmod.core.TestItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -12,24 +15,30 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import java.util.stream.Collectors;
+import static chinathai.realtestmod.Realtestmod.MODID;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("realtestmod")
+@Mod(MODID)
 public class Realtestmod {
 
     // Directly reference a slf4j logger
 //    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final String MODID = "realtestmod";
 
     public Realtestmod() {
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        bus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        bus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        bus.addListener(this::processIMC);
 
         // Register ourselves for server and other game events we are interested in
+
+        TestBlock.BLOCKS.register(bus);
+        TestItem.ITEMS.register(bus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 
