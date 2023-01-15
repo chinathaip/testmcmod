@@ -13,4 +13,6 @@ public class TestItem {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Realtestmod.MODID);
 
     public static final RegistryObject<Item> TEST_BLOCK = ITEMS.register("lol_block", () -> new BlockItem(TestBlock.TEST_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
+
+    public static final RegistryObject<Item> HAHA = ITEMS.register("haha_block", () -> new BlockItem(TestBlock.HAHA_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 }
